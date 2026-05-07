@@ -156,6 +156,7 @@ onUnmounted(() => {
             :alt="item.title"
             class="w-full h-full object-cover"
             draggable="false"
+            loading="eager"
           />
           <div
             class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-2"

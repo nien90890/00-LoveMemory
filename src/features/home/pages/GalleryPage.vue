@@ -9,6 +9,12 @@ import type { GalleryItem } from '@/types'
 const couple = useCoupleStore()
 const selectedItem = ref<GalleryItem | null>(null)
 
+// Preload all gallery images into browser cache so modal opens instantly
+couple.gallery.forEach((item) => {
+  const img = new Image()
+  img.src = item.src
+})
+
 function onSelect(item: GalleryItem) {
   selectedItem.value = item
 }
