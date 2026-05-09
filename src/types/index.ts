@@ -36,3 +36,15 @@ export interface StoryMilestone {
   icon: string
   image?: string
 }
+
+export interface JourneyCity {
+  id: number
+  name: string
+  province: string
+  lat: number
+  lng: number
+  date?: Date
+  note?: string
+}
+
+export type MapLoadingState = 'idle' | 'loading' | 'success' | 'error'

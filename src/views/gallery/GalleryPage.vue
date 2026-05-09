@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useCoupleStore } from '@/stores/couple'
-import HexagonCarousel from '@/components/HexagonCarousel.vue'
-import PhotoModal from '@/components/PhotoModal.vue'
+import HexagonCarousel from './HexagonCarousel.vue'
+import PhotoModal from './PhotoModal.vue'
 import StaggerFadeIn from '@/components/StaggerFadeIn.vue'
 import type { GalleryItem } from '@/types'
 

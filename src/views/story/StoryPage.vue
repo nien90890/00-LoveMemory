@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCoupleStore } from '@/stores/couple'
 import PageHeader from '@/components/PageHeader.vue'
-import Timeline from '@/components/Timeline.vue'
+import Timeline from './Timeline.vue'
 
 const couple = useCoupleStore()
 </script>

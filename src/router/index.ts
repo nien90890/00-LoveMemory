@@ -6,32 +6,32 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/features/home/pages/HomePage.vue'),
+      component: () => import('@/views/home/HomePage.vue'),
     },
     {
       path: '/gallery',
       name: 'gallery',
-      component: () => import('@/features/home/pages/GalleryPage.vue'),
+      component: () => import('@/views/gallery/GalleryPage.vue'),
     },
     {
       path: '/story',
       name: 'story',
-      component: () => import('@/features/home/pages/StoryPage.vue'),
+      component: () => import('@/views/story/StoryPage.vue'),
     },
     {
       path: '/love-photo',
       name: 'love-photo',
-      component: () => import('@/features/home/pages/LovePhotoPage.vue'),
+      component: () => import('@/views/LovePhotoPage.vue'),
     },
     {
       path: '/journey',
       name: 'journey',
-      component: () => import('@/features/home/pages/JourneyPage.vue'),
+      component: () => import('@/views/journey/JourneyPage.vue'),
     },
     {
       path: '/music',
       name: 'music',
-      component: () => import('@/features/home/pages/MusicPage.vue'),
+      component: () => import('@/views/MusicPage.vue'),
     },
   ],
 })

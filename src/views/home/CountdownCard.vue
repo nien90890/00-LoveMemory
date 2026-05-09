@@ -29,11 +29,7 @@ const units = [
   <div class="rounded-2xl bg-surface shadow-sm border border-gray-100 p-8 text-center">
     <p class="text-text-secondary mb-6">{{ label }}</p>
     <div class="flex justify-center gap-3 md:gap-6 flex-wrap">
-      <div
-        v-for="unit in units"
-        :key="unit.label"
-        class="flex flex-col items-center min-w-[60px]"
-      >
+      <div v-for="unit in units" :key="unit.label" class="flex flex-col items-center min-w-[60px]">
         <span class="text-3xl md:text-4xl font-bold text-primary tabular-nums">
           {{ duration[unit.key as keyof typeof duration] }}
         </span>

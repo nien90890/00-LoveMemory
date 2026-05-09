@@ -45,6 +45,13 @@
     pointer-events: none;
     position: absolute;
   }
+
+  .bg-page {
+    background-image: url('./background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+  }
 }
 
 @keyframes fall {
@@ -203,34 +210,88 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Wave divider */
 @keyframes wave-1 {
-  0% { transform: translateX(-85px); }
-  100% { transform: translateX(85px); }
+  0% {
+    transform: translateX(-85px);
+  }
+  100% {
+    transform: translateX(85px);
+  }
 }
 @keyframes wave-2 {
-  0% { transform: translateX(-65px); }
-  100% { transform: translateX(65px); }
+  0% {
+    transform: translateX(-65px);
+  }
+  100% {
+    transform: translateX(65px);
+  }
 }
 @keyframes wave-3 {
-  0% { transform: translateX(-50px); }
-  100% { transform: translateX(50px); }
+  0% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(50px);
+  }
 }
 @keyframes wave-4 {
-  0% { transform: translateX(-35px); }
-  100% { transform: translateX(35px); }
+  0% {
+    transform: translateX(-35px);
+  }
+  100% {
+    transform: translateX(35px);
+  }
 }
 
-.wave-layer-1 { animation: wave-1 7s ease-in-out infinite alternate; }
-.wave-layer-2 { animation: wave-2 5.5s ease-in-out infinite alternate; }
-.wave-layer-3 { animation: wave-3 4s ease-in-out infinite alternate; }
-.wave-layer-4 { animation: wave-4 2.5s ease-in-out infinite alternate; }
+.wave-layer-1 {
+  animation: wave-1 7s ease-in-out infinite alternate;
+}
+.wave-layer-2 {
+  animation: wave-2 5.5s ease-in-out infinite alternate;
+}
+.wave-layer-3 {
+  animation: wave-3 4s ease-in-out infinite alternate;
+}
+.wave-layer-4 {
+  animation: wave-4 2.5s ease-in-out infinite alternate;
+}
+
+.leaflet-container {
+  background: rgb(255, 248, 248) !important;
+}
+
+/* Leaflet tooltip override for city markers */
+.leaflet-tooltip.city-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2d3436;
+  padding: 2px 4px;
+}
+.leaflet-tooltip.city-tooltip::before {
+  display: none;
+}

@@ -6,7 +6,7 @@ const couple = useCoupleStore()
 
 <template>
   <section
-    class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10"
+    class="relative overflow-hidden"
   >
     <div class="max-w-3xl mx-auto px-4 py-10 md:py-12 text-center">
       <h1 class="text-4xl md:text-6xl font-bold text-text mb-4">
