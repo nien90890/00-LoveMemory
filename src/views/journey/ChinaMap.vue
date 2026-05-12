@@ -45,11 +45,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full" style="height: calc(100vh - 56px)">
-    <!-- Loading overlay -->
+  <div class="relative h-[58dvh] min-h-[28rem] w-full overflow-hidden rounded-[2rem] md:h-[70dvh]">
     <div
       v-if="loadingState === 'loading'"
-      class="absolute inset-0 z-1000 flex items-center justify-center bg-white"
+      class="absolute inset-0 z-20 flex items-center justify-center bg-white/95"
     >
       <div class="flex flex-col items-center gap-4">
         <div class="relative w-24 h-24 flex items-center justify-center">
@@ -65,7 +64,7 @@ onUnmounted(() => {
     <!-- Error overlay -->
     <div
       v-else-if="loadingState === 'error'"
-      class="absolute inset-0 z-1000 flex items-center justify-center bg-white"
+      class="absolute inset-0 z-20 flex items-center justify-center bg-white/95"
     >
       <div class="text-center">
         <p class="text-red-400 mb-2">地图加载失败</p>
@@ -79,7 +78,6 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Leaflet map container -->
     <div ref="mapContainer" class="w-full h-full" />
   </div>
 </template>

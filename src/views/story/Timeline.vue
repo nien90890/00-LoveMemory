@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'StoryTimeline',
+})
+
 import { onMounted, ref } from 'vue'
 import type { StoryMilestone } from '@/types'
 import TimelineItem from './TimelineItem.vue'
@@ -38,9 +42,11 @@ onMounted(() => {
 
 <template>
   <div class="relative">
-    <div class="absolute left-[18px] md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-secondary/30" />
+    <div
+      class="absolute left-[18px] top-0 bottom-0 w-px bg-gradient-to-b from-primary/0 via-primary/35 to-secondary/0 md:left-1/2 md:-translate-x-px"
+    />
 
-    <div class="space-y-12">
+    <div class="space-y-8 md:space-y-10">
       <div
         v-for="(milestone, index) in milestones"
         :key="milestone.id"

@@ -4,24 +4,26 @@ import HeroSection from './HeroSection.vue'
 import CountdownCard from './CountdownCard.vue'
 import QuickStats from './QuickStats.vue'
 import StaggerFadeIn from '@/components/StaggerFadeIn.vue'
-import WaveDivider from './WaveDivider.vue'
+import MemoryIntro from './MemoryIntro.vue'
+import AnniversaryMoments from './AnniversaryMoments.vue'
+import MemoryPreviewGrid from './MemoryPreviewGrid.vue'
 
 const couple = useCoupleStore()
 </script>
 
 <template>
-  <div>
+  <div class="pb-8">
     <StaggerFadeIn>
       <HeroSection />
-      <!-- <WaveDivider /> -->
-      <div>
-        <section class="max-w-3xl mx-auto px-4 pt-4">
+      <section class="max-w-4xl mx-auto px-4 pt-2 sm:px-6 lg:px-8">
           <CountdownCard :start-date="couple.info.anniversary" :label="couple.info.sinceLabel" />
-        </section>
-        <section class="max-w-3xl mx-auto px-4 pt-10 pb-4">
+      </section>
+      <section class="max-w-4xl mx-auto px-4 pt-6 pb-2 sm:px-6 lg:px-8">
           <QuickStats :stats="couple.info.stats" />
-        </section>
-      </div>
+      </section>
+      <MemoryIntro />
+      <AnniversaryMoments />
+      <MemoryPreviewGrid />
     </StaggerFadeIn>
   </div>
 </template>

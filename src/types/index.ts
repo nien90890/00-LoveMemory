@@ -10,14 +10,37 @@ export interface CoupleStats {
   songsShared: number
 }
 
+export interface HeroContent {
+  eyebrow: string
+  title: string
+  description: string
+  dedication: string
+}
+
+export interface AnniversaryMoment {
+  id: number
+  label: string
+  date: Date
+  description: string
+}
+
 export interface CoupleData {
   person1: Person
   person2: Person
   anniversary: Date
   sinceLabel: string
   tagline: string
+  intro: string
+  footerNote: string
+  hero: HeroContent
   stats: CoupleStats
+  promises: string[]
+  anniversaryMoments: AnniversaryMoment[]
+  letters: string[]
 }
+
+export type GalleryCategory = '旅行' | '日常' | '庆祝' | '肖像'
+export type MemoryCardSize = 'wide' | 'tall' | 'square'
 
 export interface GalleryItem {
   id: number
@@ -25,7 +48,10 @@ export interface GalleryItem {
   title: string
   description: string
   date: Date
-  category: string
+  category: GalleryCategory
+  location: string
+  featured?: boolean
+  size?: MemoryCardSize
 }
 
 export interface StoryMilestone {
@@ -34,6 +60,9 @@ export interface StoryMilestone {
   title: string
   description: string
   icon: string
+  chapter: string
+  place: string
+  quote?: string
   image?: string
 }
 
@@ -45,6 +74,17 @@ export interface JourneyCity {
   lng: number
   date?: Date
   note?: string
+  photo?: string
+}
+
+export interface PlaylistTrack {
+  id: number
+  title: string
+  artist: string
+  mood: string
+  lyric: string
+  note: string
+  date: Date
 }
 
 export type MapLoadingState = 'idle' | 'loading' | 'success' | 'error'

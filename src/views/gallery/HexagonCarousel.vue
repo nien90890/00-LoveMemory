@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import type { GalleryItem } from '@/types'
 
 const props = defineProps<{
@@ -10,15 +10,13 @@ const emit = defineEmits<{
   (e: 'select', item: GalleryItem): void
 }>()
 
+const carouselRef = useTemplateRef<HTMLDivElement>('carouselRef')
 const currentAngle = ref(0)
 const isManualRotating = ref(false)
 let timer: ReturnType<typeof setInterval> | null = null
 
-const viewportWidth = ref(window.innerWidth)
-const isMobile = computed(() => viewportWidth.value < 768)
-function onResize() {
-  viewportWidth.value = window.innerWidth
-}
+const viewportWidth = ref(0)
+let resizeObserver: ResizeObserver | null = null
 
 // Hexagonal prism geometry:
 //   r   = circumradius (vertex → center)
@@ -116,18 +114,30 @@ function stopTimer() {
 
 onMounted(() => {
   startTimer()
-  window.addEventListener('resize', onResize)
+  if (carouselRef.value) {
+    resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      viewportWidth.value = entry.contentRect.width
+    })
+    resizeObserver.observe(carouselRef.value)
+    viewportWidth.value = carouselRef.value.clientWidth
+  }
 })
 
 onUnmounted(() => {
   stopTimer()
-  window.removeEventListener('resize', onResize)
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+    resizeObserver = null
+  }
 })
 </script>
 
 <template>
   <div
-    class="flex justify-center items-center py-6 max-md:fixed max-md:inset-x-0 max-md:top-14 max-md:bottom-[max(25vh,200px)] max-md:py-0 select-none cursor-pointer"
+    ref="carouselRef"
+    class="flex items-center justify-center py-6 select-none cursor-pointer"
     :style="{ perspective: `${perspective}px` }"
     @mouseenter="stopTimer"
     @mouseleave="startTimer"
@@ -144,7 +154,7 @@ onUnmounted(() => {
       <div
         class="transform-3d absolute left-1/2 top-1/2"
         :style="{
-          transform: `translate(-50%, -50%) rotateX(${isMobile ? 0 : -20}deg) rotateY(${currentAngle}deg)`,
+          transform: `translate(-50%, -50%) rotateX(-20deg) rotateY(${currentAngle}deg)`,
           transition: `transform ${transitionDuration}ms ease-out`,
         }"
         @transitionend="onTransitionEnd"

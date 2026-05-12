@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, type Ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 export function useScrollAnimation(threshold = 0.15) {
   const elements = ref<(HTMLElement | null)[]>([])

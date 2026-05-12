@@ -56,7 +56,7 @@ onUnmounted(() => {
 
       <!-- Info panel -->
       <div
-        class="bg-white rounded-b-2xl p-6 animate-[fadeInUp_0.4s_ease-out_0.15s_both]"
+        class="rounded-b-2xl bg-white p-6 animate-[fadeInUp_0.4s_ease-out_0.15s_both]"
       >
         <div class="flex items-start justify-between gap-4">
           <h2 class="text-xl font-bold text-gray-800">{{ item.title }}</h2>
@@ -72,9 +72,13 @@ onUnmounted(() => {
           </span>
         </div>
         <p class="mt-3 text-gray-600 leading-relaxed">{{ item.description }}</p>
-        <p class="mt-3 text-sm text-gray-400">
-          {{ item.date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) }}
-        </p>
+        <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-gray-400">
+          <p>
+            {{ item.date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) }}
+          </p>
+          <span class="h-1 w-1 rounded-full bg-gray-300" />
+          <p>{{ item.location }}</p>
+        </div>
       </div>
     </div>
   </div>

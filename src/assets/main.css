@@ -1,31 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400;500;600;700&family=Great+Vibes&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --color-primary: #ff6b81;
-  --color-secondary: #a29bfe;
-  --color-accent: #fd79a8;
-  --color-bg: #f8f9fa;
-  --color-surface: #ffffff;
-  --color-text: #2d3436;
-  --color-text-secondary: #636e72;
+  --font-serif: 'Cormorant Infant', 'Noto Serif SC', serif;
+  --font-script: 'Great Vibes', cursive;
+
+  --color-primary: #bc5f6f;
+  --color-secondary: #8f7aa5;
+  --color-accent: #f0b8c5;
+  --color-gold: #d6b26e;
+  --color-bg: #fff8f5;
+  --color-bg-soft: #fff1ee;
+  --color-surface: #fffdfb;
+  --color-surface-strong: #fff6f2;
+  --color-text: #49363a;
+  --color-text-secondary: #816a70;
+  --color-border: #f1d7d6;
 }
 
 @layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    font-family: var(--font-serif);
+    background:
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.85), transparent 30%),
+      linear-gradient(180deg, #fffaf7 0%, #fff4f1 40%, #fff8f5 100%);
+    color: var(--color-text);
+  }
+
+  #app {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(188, 95, 111, 0.18);
+    color: var(--color-text);
+  }
+
   .page-fade-enter-active,
   .page-fade-leave-active {
     transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
+      opacity 0.45s ease,
+      transform 0.45s ease;
   }
 
   .page-fade-enter-from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(16px);
   }
 
   .page-fade-leave-to {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-12px);
   }
 
   .animate-hidden {
@@ -50,7 +82,70 @@
     background-image: url('./background.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: scroll;
+    background-attachment: fixed;
+  }
+
+  .font-script {
+    font-family: var(--font-script);
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .romantic-shell {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .romantic-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(circle at 10% 15%, rgba(240, 184, 197, 0.35), transparent 28%),
+      radial-gradient(circle at 90% 8%, rgba(214, 178, 110, 0.2), transparent 22%),
+      radial-gradient(circle at 80% 80%, rgba(143, 122, 165, 0.12), transparent 26%);
+  }
+
+  .romantic-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 248, 245, 0.94));
+  }
+
+  .section-card {
+    border: 1px solid rgba(241, 215, 214, 0.9);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 251, 249, 0.88));
+    box-shadow:
+      0 24px 70px rgba(188, 95, 111, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+  }
+
+  .section-title {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.15;
+  }
+
+  .section-subtitle {
+    color: rgba(129, 106, 112, 0.95);
+    font-size: clamp(0.98rem, 1.6vw, 1.1rem);
+    line-height: 1.8;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -279,7 +374,8 @@
 }
 
 .leaflet-container {
-  background: rgb(255, 248, 248) !important;
+  background: rgb(255, 249, 246) !important;
+  border-radius: 1.75rem;
 }
 
 /* Leaflet tooltip override for city markers */
@@ -315,7 +411,7 @@
   pointer-events: none;
   font-size: 24px;
   line-height: 1;
-  color: #ff6b81;
+  color: #bc5f6f;
   will-change: transform, opacity;
 }
 
@@ -333,5 +429,4 @@
   animation: heart-ripple 2.4s ease-out infinite;
   animation-delay: 1.6s;
 }
-
 

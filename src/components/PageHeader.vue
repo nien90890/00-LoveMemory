@@ -2,15 +2,22 @@
 interface Props {
   title: string
   description?: string
+  eyebrow?: string
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <div class="text-center py-8 px-4">
-    <h1 class="text-3xl md:text-4xl font-bold text-text">{{ title }}</h1>
-    <p v-if="description" class="mt-3 text-text-secondary max-w-md mx-auto">
+  <div class="px-4 py-10 text-center md:py-14">
+    <p
+      v-if="eyebrow"
+      class="mb-3 text-xs uppercase tracking-[0.35em] text-primary/70 sm:text-sm"
+    >
+      {{ eyebrow }}
+    </p>
+    <h1 class="section-title font-semibold text-text">{{ title }}</h1>
+    <p v-if="description" class="section-subtitle mx-auto mt-4 max-w-2xl">
       {{ description }}
     </p>
   </div>

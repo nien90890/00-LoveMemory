@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const containerId = 'sakura-petals'
 let sakuraInstance: Sakura | null = null
+let mediaQuery: MediaQueryList | null = null
 
 onMounted(() => {
+  mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  if (mediaQuery.matches) return
+
   sakuraInstance = new Sakura(`#${containerId}`, {
     fallSpeed: 1,
     maxSize: 16,
@@ -25,6 +29,7 @@ onUnmounted(() => {
     sakuraInstance.stop(true)
     sakuraInstance = null
   }
+  mediaQuery = null
 })
 </script>
 

@@ -59,6 +59,7 @@ let fishCount = 3
 let pointInterval = 0
 let animId = 0
 let resizeObserver: ResizeObserver | null = null
+let prefersReducedMotion = false
 
 function getRandomValue(min: number, max: number): number {
   return min + (max - min) * Math.random()
@@ -226,6 +227,7 @@ function renderFish(context: CanvasRenderingContext2D, fish: FishObj) {
 }
 
 function render() {
+  if (prefersReducedMotion) return
   animId = requestAnimationFrame(render)
   controlStatus()
   if (!ctx) return
@@ -304,6 +306,17 @@ function handleResize() {
 onMounted(() => {
   canvas = canvasRef.value
   if (!canvas) return
+
+  prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (prefersReducedMotion) {
+    setup()
+    if (ctx) {
+      ctx.clearRect(0, 0, width, height)
+      ctx.fillStyle = '#f3c0c6'
+      ctx.fillRect(0, height * 0.5, width, height * 0.5)
+    }
+    return
+  }
 
   resizeObserver = new ResizeObserver(() => handleResize())
   resizeObserver.observe(canvas.parentElement!)
