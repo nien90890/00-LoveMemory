@@ -1,4 +1,5 @@
 import type { JourneyCity } from '@/types'
+import { journeyImageAssets } from './imageAssets'
 
 export const journeyCities: JourneyCity[] = [
   {
@@ -9,7 +10,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 116.4074,
     date: new Date('2018-03-15'),
     note: '第一次一起看故宫的雪',
-    photo: 'https://picsum.photos/seed/city1/640/480',
+    photo: journeyImageAssets[0],
   },
   {
     id: 2,
@@ -19,7 +20,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 121.4737,
     date: new Date('2019-06-20'),
     note: '外滩夜景好美',
-    photo: 'https://picsum.photos/seed/city2/640/480',
+    photo: journeyImageAssets[1],
   },
   {
     id: 3,
@@ -29,7 +30,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 113.2644,
     date: new Date('2020-01-10'),
     note: '早茶之旅',
-    photo: 'https://picsum.photos/seed/city3/640/480',
+    photo: journeyImageAssets[2],
   },
   {
     id: 4,
@@ -39,7 +40,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 114.0579,
     date: new Date('2020-12-25'),
     note: '圣诞节的深圳湾',
-    photo: 'https://picsum.photos/seed/city4/640/480',
+    photo: journeyImageAssets[3],
   },
   {
     id: 5,
@@ -49,7 +50,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 120.1551,
     date: new Date('2019-10-01'),
     note: '西湖泛舟',
-    photo: 'https://picsum.photos/seed/city5/640/480',
+    photo: journeyImageAssets[4],
   },
   {
     id: 6,
@@ -59,7 +60,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 104.0668,
     date: new Date('2021-04-05'),
     note: '看大熊猫',
-    photo: 'https://picsum.photos/seed/city6/640/480',
+    photo: journeyImageAssets[5],
   },
   {
     id: 7,
@@ -69,7 +70,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 106.9123,
     date: new Date('2021-07-18'),
     note: '火锅吃到撑',
-    photo: 'https://picsum.photos/seed/city7/640/480',
+    photo: journeyImageAssets[6],
   },
   {
     id: 8,
@@ -79,7 +80,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 108.9398,
     date: new Date('2018-10-02'),
     note: '兵马俑震撼人心',
-    photo: 'https://picsum.photos/seed/city8/640/480',
+    photo: journeyImageAssets[7],
   },
   {
     id: 9,
@@ -89,7 +90,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 118.7969,
     date: new Date('2022-03-12'),
     note: '鸡鸣寺樱花',
-    photo: 'https://picsum.photos/seed/city9/640/480',
+    photo: journeyImageAssets[8],
   },
   {
     id: 10,
@@ -99,7 +100,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 118.0894,
     date: new Date('2022-08-20'),
     note: '鼓浪屿的夏天',
-    photo: 'https://picsum.photos/seed/city10/640/480',
+    photo: journeyImageAssets[9],
   },
   {
     id: 11,
@@ -109,7 +110,7 @@ export const journeyCities: JourneyCity[] = [
     lng: 112.9388,
     date: new Date('2023-02-14'),
     note: '情人节在橘子洲',
-    photo: 'https://picsum.photos/seed/city11/640/480',
+    photo: journeyImageAssets[10],
   },
   {
     id: 12,
@@ -119,6 +120,6 @@ export const journeyCities: JourneyCity[] = [
     lng: 102.7183,
     date: new Date('2023-10-01'),
     note: '春城花海',
-    photo: 'https://picsum.photos/seed/city12/640/480',
+    photo: journeyImageAssets[11],
   },
 ]

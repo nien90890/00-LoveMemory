@@ -20,6 +20,9 @@ interface FishObj {
   x: number
   y: number
   previousY: number
+  speedX: number
+  speedY: number
+  accelerationY: number
   vx: number
   vy: number
   ay: number
@@ -28,16 +31,20 @@ interface FishObj {
   phi: number
 }
 
-// --- Responsive rate constants (fraction of canvas size, NOT fixed pixels) ---
-// Key: vx = width * rate, so fish takes same proportion of frames to cross
-// any screen size. Fixes the bug where fish appear faster on narrow screens.
-const VX_RATE_MIN = 0.002 // min vx as fraction of canvas width
-const VX_RATE_MAX = 0.004 // max vx as fraction of canvas width
-const VY_RATE_MIN = 0.002 // min vy as fraction of canvas height
-const VY_RATE_MAX = 0.002 // max vy as fraction of canvas height
-const AY_RATE_MIN = 0.0001 // min ay as fraction of canvas height
-const AY_RATE_MAX = 0.0001 // max ay as fraction of canvas height
-const GRAVITY_RATE = 0.0002 // gravity as fraction of canvas height
+const REFERENCE_WIDTH = 1280
+const REFERENCE_HEIGHT = 300
+const BASE_FISH_SCALE = 1
+const MIN_FISH_SCALE = 0.88
+const MAX_FISH_SCALE = 1.15
+const BASE_SPEED_X_MIN = 2.8
+const BASE_SPEED_X_MAX = 4.4
+const BASE_SPEED_Y = 0.55
+const BASE_ACCELERATION_Y = 0.03
+const BASE_GRAVITY = 0.06
+const MIN_SPEED_MULTIPLIER = 0.92
+const MAX_SPEED_MULTIPLIER = 1.08
+const MIN_FISH_COUNT = 2
+const MAX_FISH_COUNT = 4
 const THRESHOLD_RATE = 0.03 // threshold as fraction of canvas width
 const POINT_INTERVAL = 5
 const MAX_INTERVAL_COUNT = 50
@@ -60,9 +67,28 @@ let pointInterval = 0
 let animId = 0
 let resizeObserver: ResizeObserver | null = null
 let prefersReducedMotion = false
+let lastFrameTime = 0
 
 function getRandomValue(min: number, max: number): number {
   return min + (max - min) * Math.random()
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max)
+}
+
+function getFishScale(): number {
+  const widthRatio = width / REFERENCE_WIDTH
+  const heightRatio = height / REFERENCE_HEIGHT
+  const blendedRatio = widthRatio * 0.55 + heightRatio * 0.45
+  return clamp(blendedRatio, MIN_FISH_SCALE, MAX_FISH_SCALE)
+}
+
+function getSpeedMultiplier(): number {
+  const widthRatio = width / REFERENCE_WIDTH
+  const heightRatio = height / REFERENCE_HEIGHT
+  const blendedRatio = widthRatio * 0.45 + heightRatio * 0.55
+  return clamp(blendedRatio, MIN_SPEED_MULTIPLIER, MAX_SPEED_MULTIPLIER)
 }
 
 function createSurfacePoints() {
@@ -102,14 +128,21 @@ function createSurfacePoints() {
 function initFish(): FishObj {
   const direction = Math.random() < 0.5
   const threshold = width * THRESHOLD_RATE
+  const speedMultiplier = getSpeedMultiplier()
+  const speedX = getRandomValue(BASE_SPEED_X_MIN, BASE_SPEED_X_MAX) * speedMultiplier
+  const speedY = BASE_SPEED_Y * speedMultiplier
+  const accelerationY = BASE_ACCELERATION_Y * speedMultiplier
   const fish: FishObj = {
     direction,
     x: direction ? width + threshold : -threshold,
     y: getRandomValue(height * 0.6, height * 0.85),
     previousY: 0,
-    vx: width * getRandomValue(VX_RATE_MIN, VX_RATE_MAX) * (direction ? -1 : 1),
-    vy: height * getRandomValue(-VY_RATE_MAX, -VY_RATE_MIN),
-    ay: height * getRandomValue(-AY_RATE_MAX, -AY_RATE_MIN),
+    speedX,
+    speedY,
+    accelerationY,
+    vx: speedX * (direction ? -1 : 1),
+    vy: getRandomValue(-speedY, -speedY * 0.8),
+    ay: getRandomValue(-accelerationY, -accelerationY * 0.8),
     isOut: false,
     theta: 0,
     phi: 0,
@@ -127,7 +160,7 @@ function interferePoint(x: number, y: number, velocity: number) {
   pt.fy = height * ACCELARATION_RATE * (height - pt.height - y >= 0 ? -1 : 1) * Math.abs(velocity)
 }
 
-function controlStatus() {
+function controlStatus(frameRatio: number) {
   // Match original RENDERER.controlStatus: only updateSelf + updateNeighbors + fish count
   for (const pt of points) {
     pt.fy += SPRING_CONSTANT * (pt.initHeight - pt.height)
@@ -140,27 +173,27 @@ function controlStatus() {
     if (pt.next) pt.force.next = WAVE_SPREAD * (pt.height - pt.next.height)
   }
 
-  const gravity = height * GRAVITY_RATE
+  const gravity = BASE_GRAVITY * getSpeedMultiplier()
   const threshold = width * THRESHOLD_RATE
 
   for (const fish of fishes) {
     fish.previousY = fish.y
-    fish.x += fish.vx
-    fish.y += fish.vy
-    fish.vy += fish.ay
+    fish.x += fish.vx * frameRatio
+    fish.y += fish.vy * frameRatio
+    fish.vy += fish.ay * frameRatio
 
     if (fish.y < height * INIT_HEIGHT_RATE) {
-      fish.vy += gravity
+      fish.vy += gravity * frameRatio
       fish.isOut = true
     } else {
-      if (fish.isOut) fish.ay = height * getRandomValue(-AY_RATE_MAX, -AY_RATE_MIN)
+      if (fish.isOut) fish.ay = getRandomValue(-fish.accelerationY, -fish.accelerationY * 0.8)
       fish.isOut = false
     }
 
     if (!fish.isOut) {
-      fish.theta += Math.PI / 20
+      fish.theta += (Math.PI / 20) * frameRatio
       fish.theta %= Math.PI * 2
-      fish.phi += Math.PI / 30
+      fish.phi += (Math.PI / 30) * frameRatio
       fish.phi %= Math.PI * 2
     }
 
@@ -180,9 +213,8 @@ function controlStatus() {
 }
 
 function renderFish(context: CanvasRenderingContext2D, fish: FishObj) {
-  // Scale fish body with canvas width so visual proportion stays consistent
-  // Reference: fish body = 70px at 1200px canvas width (5.8% of width)
-  const s = width / 1200
+  // Keep laptop-scale look as baseline, then gently clamp on very small/large screens.
+  const s = BASE_FISH_SCALE * getFishScale()
 
   context.save()
   context.translate(fish.x, fish.y)
@@ -226,10 +258,13 @@ function renderFish(context: CanvasRenderingContext2D, fish: FishObj) {
   context.restore()
 }
 
-function render() {
+function render(timestamp = 0) {
   if (prefersReducedMotion) return
+  const frameRatio = lastFrameTime === 0 ? 1 : clamp((timestamp - lastFrameTime) / (1000 / 60), 0.75, 1.35)
+  lastFrameTime = timestamp
+
   animId = requestAnimationFrame(render)
-  controlStatus()
+  controlStatus(frameRatio)
   if (!ctx) return
   ctx.clearRect(0, 0, width, height)
 
@@ -277,10 +312,14 @@ function setup() {
   if (!ctx) return
   ctx.scale(dpr, dpr)
 
-  fishCount = Math.max(2, Math.round(((3 * width) / 500) * (height / 500)))
+  const widthRatio = width / REFERENCE_WIDTH
+  const heightRatio = height / REFERENCE_HEIGHT
+  const densityRatio = widthRatio * 0.5 + heightRatio * 0.5
+  fishCount = clamp(Math.round(3 * densityRatio), MIN_FISH_COUNT, MAX_FISH_COUNT)
   points = []
   fishes = []
   intervalCount = MAX_INTERVAL_COUNT
+  lastFrameTime = 0
   createSurfacePoints()
   fishes.push(initFish())
 }

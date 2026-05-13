@@ -1,4 +1,5 @@
 import type { StoryMilestone } from '@/types'
+import { storyImageAssets } from './imageAssets'
 
 export const storyMilestones: StoryMilestone[] = [
   {
@@ -10,7 +11,7 @@ export const storyMilestones: StoryMilestone[] = [
     description:
       '那天的天气、桌上的杯子、你说话时的神情，后来都成了我反复回想的开头。我们以为只是一次普通见面，却悄悄走进了彼此后来的很多年。',
     icon: 'Heart',
-    image: 'https://picsum.photos/seed/story1/800/400',
+    image: storyImageAssets[0],
     quote: '有些相遇看起来很轻，却会在心里留很久。',
   },
   {
@@ -22,7 +23,7 @@ export const storyMilestones: StoryMilestone[] = [
     description:
       '我们终于不再绕着心事打转，而是认真地把喜欢说了出来。从那天开始，很多事情第一次有了“我们”的名字。',
     icon: 'Sparkles',
-    image: 'https://picsum.photos/seed/story2/800/400',
+    image: storyImageAssets[1],
     quote: '爱不是突然发生的，是无数次靠近之后终于坦白。',
   },
   {
@@ -34,7 +35,7 @@ export const storyMilestones: StoryMilestone[] = [
     description:
       '第一次为了同一个目的地收行李、做攻略、赶车赶路。城市的风景当然好看，但更珍贵的是，我开始习惯了每一段路上都有你。',
     icon: 'Plane',
-    image: 'https://picsum.photos/seed/story3/800/400',
+    image: storyImageAssets[2],
     quote: '原来旅行最动人的部分，不是风景，是同行的人。',
   },
   {
@@ -57,7 +58,7 @@ export const storyMilestones: StoryMilestone[] = [
     description:
       '时间让我们不再只是热烈心动，也学会了理解、包容和一起规划未来。比起“永远”，更打动我的是我们一次次认真地选择彼此。',
     icon: 'Cake',
-    image: 'https://picsum.photos/seed/story5/800/400',
+    image: storyImageAssets[3],
     quote: '最浪漫的事情，是很多年后依然愿意并肩往前走。',
   },
 ]

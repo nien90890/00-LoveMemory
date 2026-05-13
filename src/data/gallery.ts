@@ -1,9 +1,10 @@
 import type { GalleryItem } from '@/types'
+import { galleryImageAssets } from './imageAssets'
 
 export const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    src: 'https://picsum.photos/seed/love1/800/600',
+    src: galleryImageAssets[0],
     title: '第一次旅行',
     description: '我们的第一次海边之旅，阳光正好，微风不燥。',
     date: new Date('2023-07-20'),
@@ -14,7 +15,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 2,
-    src: 'https://picsum.photos/seed/love2/800/600',
+    src: galleryImageAssets[1],
     title: '一起做饭',
     description: '第一次一起下厨，虽然把厨房弄得一团糟，但很开心。',
     date: new Date('2023-08-15'),
@@ -24,7 +25,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 3,
-    src: 'https://picsum.photos/seed/love3/800/600',
+    src: galleryImageAssets[2],
     title: '生日惊喜',
     description: '为你准备的生日惊喜，看到你开心的笑容一切都值得。',
     date: new Date('2023-09-10'),
@@ -35,7 +36,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 4,
-    src: 'https://picsum.photos/seed/love4/800/600',
+    src: galleryImageAssets[3],
     title: '秋日散步',
     description: '落叶纷飞的季节，牵着你的手走过每一条街道。',
     date: new Date('2023-10-05'),
@@ -45,7 +46,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 5,
-    src: 'https://picsum.photos/seed/love5/800/600',
+    src: galleryImageAssets[4],
     title: '跨年夜',
     description: '一起迎接新的一年，烟火下的吻是最美的回忆。',
     date: new Date('2024-01-01'),
@@ -56,7 +57,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 6,
-    src: 'https://picsum.photos/seed/love6/800/600',
+    src: galleryImageAssets[5],
     title: '春日野餐',
     description: '春暖花开，带上你做的三明治去公园野餐。',
     date: new Date('2024-03-20'),
@@ -66,7 +67,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 7,
-    src: 'https://picsum.photos/seed/love7/800/600',
+    src: galleryImageAssets[6],
     title: '窗边合影',
     description: '光线落在你身上的那一刻，我突然很想把这一幕永远留住。',
     date: new Date('2024-05-11'),
@@ -76,7 +77,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 8,
-    src: 'https://picsum.photos/seed/love8/800/600',
+    src: galleryImageAssets[7],
     title: '凌晨回家的路',
     description: '那晚路灯很温柔，你握着我的手，整座城市都像慢了下来。',
     date: new Date('2024-09-22'),
