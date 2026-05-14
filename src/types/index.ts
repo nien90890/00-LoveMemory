@@ -82,9 +82,7 @@ export interface PlaylistTrack {
   title: string
   artist: string
   mood: string
-  lyric: string
+  memoryLine: string
   note: string
   date: Date
 }
-
-export type MapLoadingState = 'idle' | 'loading' | 'success' | 'error'

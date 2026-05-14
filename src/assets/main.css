@@ -2,7 +2,7 @@
 
 @theme {
   --font-serif: 'Cormorant Infant', 'Noto Serif SC', serif;
-  --font-script: 'Great Vibes', cursive;
+  --font-script: 'Ma Shan Zheng', 'Noto Serif SC', cursive;
 
   --color-primary: #bc5f6f;
   --color-secondary: #8f7aa5;
@@ -78,9 +78,11 @@
   }
 
   .bg-page {
-    background-image: url('./background.webp');
-    background-size: cover;
-    background-position: center;
+    background:
+      radial-gradient(circle at 15% 18%, rgba(255, 221, 230, 0.8), transparent 24%),
+      radial-gradient(circle at 82% 12%, rgba(255, 235, 207, 0.72), transparent 22%),
+      radial-gradient(circle at 75% 78%, rgba(229, 219, 255, 0.45), transparent 26%),
+      linear-gradient(180deg, #fff9f7 0%, #fff3ef 48%, #fff8f5 100%);
   }
 
   .font-script {
@@ -369,25 +371,6 @@
 }
 .wave-layer-4 {
   animation: wave-4 2.5s ease-in-out infinite alternate;
-}
-
-.leaflet-container {
-  background: rgb(255, 249, 246) !important;
-  border-radius: 1.75rem;
-}
-
-/* Leaflet tooltip override for city markers */
-.leaflet-tooltip.city-tooltip {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  font-size: 12px;
-  font-weight: 600;
-  color: #2d3436;
-  padding: 2px 4px;
-}
-.leaflet-tooltip.city-tooltip::before {
-  display: none;
 }
 
 /* Heart ripple loading animation */

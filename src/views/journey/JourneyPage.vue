@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { journeyCities } from '@/data/journey'
-import ChinaMap from './ChinaMap.vue'
+import JourneyMapBoard from './JourneyMapBoard.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import JourneyMoments from './JourneyMoments.vue'
 
@@ -44,7 +44,7 @@ const latestCity = computed(() => journeyCities[journeyCities.length - 1]?.name 
     </section>
 
     <section class="mx-auto max-w-6xl">
-      <ChinaMap :cities="journeyCities" />
+      <JourneyMapBoard :cities="journeyCities" />
     </section>
 
     <section class="mx-auto mt-8 max-w-6xl">

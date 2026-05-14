@@ -60,7 +60,7 @@ const moodCount = computed(() => new Set(playlistTracks.map((track) => track.moo
         </div>
 
         <blockquote class="mt-5 rounded-[1.5rem] bg-white/75 px-5 py-4 text-lg leading-8 text-primary">
-          “{{ track.lyric }}”
+          {{ track.memoryLine }}
         </blockquote>
 
         <p class="mt-4 text-sm leading-7 text-text-secondary">{{ track.note }}</p>
